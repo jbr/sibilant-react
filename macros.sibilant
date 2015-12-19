@@ -1,0 +1,31 @@
+(namespace react)
+(macro lower-case? (str)
+       `(= (.to-lower-case @str) @str))
+(macro upper-case? (str)
+       `(= (.to-upper-case @str) @str))
+
+(macro create-element (tagname ...attributes-and-contents)
+       (var attributes []
+            contents []
+            first-tagname-letter (pipe tagname (transpile) (output-formatter) (first))
+            tag (if (lower-case? first-tagname-letter) (^core/quote tagname) tagname))
+
+       (each arg attributes-and-contents
+             (if (or (not (empty? contents)) (and (even? attributes.length) (node? arg 'expression 'string)))
+                 (contents.push arg)
+
+                 (and (node? arg 'literal) (= "!" (last arg.token)))
+                 (do
+                  (attributes.push (merge-into (clone arg) { token (arg.token.slice 0 -1) }))
+                  (attributes.push 'true))
+                 
+                 (attributes.push arg)))
+
+       `(React.create-element @tag @(if (empty? attributes) 'null `(hash ...@attributes)) ...@contents ))
+
+(macro tags (...tags)
+       (each tag tags
+             `(macro @tag (...args)
+                     (var tag (quote @tag))
+                     `(react/create-element @tag ...@args))))
+
