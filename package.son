@@ -1,11 +1,8 @@
 {
   name "sibilant-react"
-  version "0.0.1"
+  version "0.0.2"
   description "react macros for sibilant"
   main "macros.sibilant"
-  scripts {
-    test "echo \"Error no test specified\" && exit 1"
-  }
   author "Jacob Rothstein <hi@jbr.me>"
   repository { type 'git
                url  "http://github.com/jbr/sibilant-react.git" }

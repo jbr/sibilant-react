@@ -29,3 +29,9 @@
                      (var tag (quote @tag))
                      `(react/create-element @tag ...@args))))
 
+
+
+(macro def-class (name ...definition)
+       `(tags @name)
+       `(var @name (React.create-class (hash ...@definition))))
+       

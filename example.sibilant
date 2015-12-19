@@ -1,0 +1,21 @@
+(include "sibilant-react/macros")
+(import-namespace react)
+
+(tags p div h1)
+
+(def-class LikeButton
+           get-initial-state (#> { liked false })
+           handle-click (#> (this.set-state { liked (not this.state.liked) }))
+           render (#>
+                   (p on-click this.handle-click
+                      ("You "
+                       (if this.state.liked "like" "haven't liked")
+                       " this. Click to toggle."))))
+
+(ReactDOM.render
+ 
+ (div id: "main"
+      (h1 "Example!")
+      (LikeButton))
+ 
+ (document.get-element-by-id 'app))
