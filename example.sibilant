@@ -1,21 +1,25 @@
 (include "sibilant-react/macros")
 (import-namespace react)
 
-(tags p div h1)
+(tags p div h1 h2 span)
 
 (def-class LikeButton
-           get-initial-state (#> { liked false })
-           handle-click (#> (this.set-state { liked (not this.state.liked) }))
+           get-initial-state (#> { liked false count 0 })
+           handle-click (#> (this.set-state { count (+ 1 this.state.count)
+                                              liked (not this.state.liked) }))
            render (#>
-                   (p on-click this.handle-click
-                      ("You "
-                       (if this.state.liked "like" "haven't liked")
-                       " this. Click to toggle."))))
+                   (div style { background-color (if this.state.liked 'light-blue 'red)
+                                color 'white }
+                        on-click this.handle-click
+                        (h2 this.props.label)
+                           (p "click count: " (span this.state.count))
+                           (p "This button is " (if this.state.liked "on" "off")))))
 
 (ReactDOM.render
- 
  (div id: "main"
       (h1 "Example!")
-      (LikeButton))
+      (.map `[ a b c ]
+            (#> (LikeButton key #0, label #0))))
+
  
  (document.get-element-by-id 'app))

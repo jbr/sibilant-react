@@ -10,16 +10,22 @@
             first-tagname-letter (pipe tagname (transpile) (output-formatter) (first))
             tag (if (lower-case? first-tagname-letter) (^core/quote tagname) tagname))
 
-       (each arg attributes-and-contents
-             (if (or (not (empty? contents)) (and (even? attributes.length) (node? arg 'expression 'string)))
-                 (contents.push arg)
+       (each (arg index) attributes-and-contents
+             (if
+              (and (empty? contents)
+                   (node? arg 'literal)
+                   (= "!" (last arg.token)))
+              (do
+               (attributes.push (merge-into (clone arg) { token (arg.token.slice 0 -1) }))
+               (attributes.push 'true))
 
-                 (and (node? arg 'literal) (= "!" (last arg.token)))
-                 (do
-                  (attributes.push (merge-into (clone arg) { token (arg.token.slice 0 -1) }))
-                  (attributes.push 'true))
-                 
-                 (attributes.push arg)))
+              (or (not (empty? contents))
+                  (and (even? attributes.length)
+                       (or (node? arg 'expression 'string)
+                           (= (+ index 1) attributes-and-contents.length))))
+              (contents.push arg)
+
+              (attributes.push arg)))
 
        `(React.create-element @tag @(if (empty? attributes) 'null `(hash ...@attributes)) ...@contents ))
 
