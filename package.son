@@ -1,10 +1,10 @@
 {
   name "sibilant-react"
-  version "0.0.2"
+  version "0.0.3"
   description "react macros for sibilant"
   main "macros.sibilant"
   author "Jacob Rothstein <hi@jbr.me>"
   repository { type 'git
                url  "http://github.com/jbr/sibilant-react.git" }
-  license "MIT"
+  license 'MIT
 }
