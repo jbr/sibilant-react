@@ -2,10 +2,12 @@
 (import-namespace stool)
 
 (command package "rebuilds the npm package json"
-  (exec "sibilant package.son -o . -m" next))
+         (exec "sibilant package.son -o -m" next))
+
+(command example "rebuilds the example"
+         (exec "sibilant example.sibilant -o -m" next))
 
 (command clean "uses git to revert to a clean product"
-  (exec "git checkout package.json" next))
+         (exec "git checkout package.json" next))
 
-
-(sequence all [ clean package ])
+(sequence all [ clean package example ])
