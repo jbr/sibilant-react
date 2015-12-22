@@ -39,5 +39,5 @@
 
 (macro def-class (name ...definition)
        `(tags @name)
-       `(var @name (React.create-class (hash ...@definition))))
+       `(var @name (React.create-class (hash display-name (quote @name) ...@definition))))
        

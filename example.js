@@ -1,4 +1,5 @@
 var LikeButton = React.createClass({
+  displayName: "LikeButton",
   getInitialState: (function() {
     /* /Users/jbr/code/sibilant-react/example.sibilant:7:29 */
   
