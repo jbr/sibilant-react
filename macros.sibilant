@@ -23,7 +23,9 @@
 
               (attributes.push arg)))
 
-       `(React.create-element @tag @(if (empty? attributes) 'null `(hash ...@attributes)) ...@contents ))
+       `(React.create-element @tag
+                              @(if (empty? attributes) 'null `(hash ...@attributes))
+                              ...@contents))
 
 (macro tags (...tags)
        (each tag tags
@@ -33,9 +35,38 @@
 
 
 
-(macro def-class (name ...definition)
+(macro def-class (name ...attributes-and-contents)
+       (var attributes []
+            contents [])
+
+       (each (arg index) attributes-and-contents
+             (if
+              (and (empty? contents)
+                   (node? arg 'literal)
+                   (= "!" (last arg.token)))
+              (do
+               (attributes.push (merge-into (clone arg) { token (arg.token.slice 0 -1) }))
+               (attributes.push 'true))
+
+              (or (not (empty? contents))
+                  (and (even? attributes.length)
+                       (or (node? arg 'expression 'string)
+                           (= (+ index 1) attributes-and-contents.length))))
+              (contents.push arg)
+
+              (attributes.push arg)))
+
+
+       (unless (empty? contents)
+               (attributes.push 'render)
+               (attributes.push `(lambda @{ args []
+                                            node (first contents)
+                                            body contents })))
+       
        `(tags @name)
-       `(var @name (React.create-class (hash display-name (quote @name) ...@definition))))
+       `(var @name (React.create-class (hash display-name (quote @name)
+                                             ...@attributes))))
+
        
 (macro import-classes (source ...class-names)
        `(tags ...@class-names)

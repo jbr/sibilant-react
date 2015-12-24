@@ -8,13 +8,12 @@
            get-initial-state (#> { liked false count 0 })
            handle-click (#> (this.set-state { count (+ 1 this.state.count)
                                               liked (not this.state.liked) }))
-           render (#>
-                   (div style { background-color (if this.state.liked 'light-blue 'red)
-                                color 'white }
-                        on-click this.handle-click
-                        (h2 this.props.label)
-                           (p "click count: " (span this.state.count))
-                           (p "This button is " (if this.state.liked "on" "off")))))
+           (div style { background-color (if this.state.liked 'light-blue 'red)
+                        color 'white }
+                on-click this.handle-click
+                (h2 this.props.label)
+                (p "click count: " (span this.state.count))
+                (p "This button is " (if this.state.liked "on" "off"))))
 
 (ReactDOM.render
  (div id: "main"
