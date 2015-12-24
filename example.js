@@ -19,7 +19,7 @@ var LikeButton = React.createClass({
     });
   }),
   render: (function() {
-    /* /Users/jbr/code/sibilant-react/example.sibilant:11:11 */
+    /* /Users/jbr/code/sibilant-react/example.sibilant:12:11 */
   
     return React.createElement("div", {
       style: {
@@ -43,7 +43,7 @@ var LikeButton = React.createClass({
   })
 });
 ReactDOM.render(React.createElement("div", { id: "main" }, React.createElement("h1", null, "Example!"), [ "a", "b", "c" ].map((function() {
-  /* /Users/jbr/code/sibilant-react/example.sibilant:22:12 */
+  /* /Users/jbr/code/sibilant-react/example.sibilant:23:12 */
 
   return React.createElement(LikeButton, {
     key: arguments[0],

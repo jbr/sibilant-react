@@ -8,6 +8,7 @@
            get-initial-state (#> { liked false count 0 })
            handle-click (#> (this.set-state { count (+ 1 this.state.count)
                                               liked (not this.state.liked) }))
+
            (div style { background-color (if this.state.liked 'light-blue 'red)
                         color 'white }
                 on-click this.handle-click
