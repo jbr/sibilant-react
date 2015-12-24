@@ -1,7 +1,9 @@
+//# sourceMappingURL=/example.map
+;
 var LikeButton = React.createClass({
   displayName: "LikeButton",
   getInitialState: (function() {
-    /* /Users/jbr/code/sibilant-react/example.sibilant:7:29 */
+    /* /Users/jbr/code/sibilant-react/example.sibilant:8:29 */
   
     return {
       liked: false,
@@ -9,7 +11,7 @@ var LikeButton = React.createClass({
     };
   }),
   handleClick: (function() {
-    /* /Users/jbr/code/sibilant-react/example.sibilant:8:24 */
+    /* /Users/jbr/code/sibilant-react/example.sibilant:9:24 */
   
     return this.setState({
       count: (1 + this.state.count),
@@ -17,7 +19,7 @@ var LikeButton = React.createClass({
     });
   }),
   render: (function() {
-    /* /Users/jbr/code/sibilant-react/example.sibilant:10:18 */
+    /* /Users/jbr/code/sibilant-react/example.sibilant:11:18 */
   
     return React.createElement("div", {
       style: {
@@ -41,7 +43,7 @@ var LikeButton = React.createClass({
   })
 });
 ReactDOM.render(React.createElement("div", { id: "main" }, React.createElement("h1", null, "Example!"), [ "a", "b", "c" ].map((function() {
-  /* /Users/jbr/code/sibilant-react/example.sibilant:22:12 */
+  /* /Users/jbr/code/sibilant-react/example.sibilant:23:12 */
 
   return React.createElement(LikeButton, {
     key: arguments[0],

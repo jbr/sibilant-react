@@ -1,8 +1,4 @@
 (namespace react)
-(macro lower-case? (str)
-       `(= (.to-lower-case @str) @str))
-(macro upper-case? (str)
-       `(= (.to-upper-case @str) @str))
 
 (macro create-element (tagname ...attributes-and-contents)
        (var attributes []
@@ -41,3 +37,6 @@
        `(tags @name)
        `(var @name (React.create-class (hash display-name (quote @name) ...@definition))))
        
+(macro import-classes (source ...class-names)
+       `(tags ...@class-names)
+       `(var {...@class-names} @source))
