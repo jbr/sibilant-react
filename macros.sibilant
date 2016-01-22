@@ -28,10 +28,10 @@
                               ...@contents))
 
 (macro tags (...tags)
-       (each tag tags
+       (tags.map (#(tag)
              `(macro @tag (...args)
                      (var tag (quote @tag))
-                     `(react/create-element @tag ...@args))))
+                     `(react/create-element @tag ...@args)))))
 
 
 
@@ -62,12 +62,14 @@
                (attributes.push `(lambda @{ args []
                                             node (first contents)
                                             body contents })))
-       
-       `(tags @name)
-       `(var @name (React.create-class (hash display-name (quote @name)
-                                             ...@attributes))))
+       [
+        `(tags @name)
+         `(var @name (React.create-class (hash display-name (quote @name)
+                                               ...@attributes)))
+         ])
 
        
 (macro import-classes (source ...class-names)
+       [
        `(tags ...@class-names)
-       `(var {...@class-names} @source))
+       `(var {...@class-names} @source) ])
