@@ -29,9 +29,9 @@
 
 (macro tags (...tags)
        (tags.map (#(tag)
-             `(macro @tag (...args)
-                     (var tag (quote @tag))
-                     `(react/create-element @tag ...@args)))))
+                   `(macro @tag (...args)
+                           (var tag (quote @tag))
+                           `(react/create-element @tag ...@args)))))
 
 
 
@@ -68,8 +68,23 @@
                                                ...@attributes)))
          ])
 
-       
-(macro import-classes (source ...class-names)
-       [
-       `(tags ...@class-names)
-       `(var {...@class-names} @source) ])
+(macro import-classes! (...alternating-sources-and-class-names)
+       (var classes []
+            requires (inject [] alternating-sources-and-class-names
+                             (#(pairs node)
+                               (pairs.concat
+                                (if
+                                 (and (odd? pairs.length) (node? node 'tick 'string))
+                                 `(require @node)
+
+                                 (even? pairs.length)
+                                 (do
+                                  (assign classes (classes.concat
+                                                   (if (node? node 'brace)
+                                                       node.contents
+                                                       [node])))
+                                  node)
+
+                                 node)))))
+
+       [ `(tags ...@classes) `(var ...@requires) ])
