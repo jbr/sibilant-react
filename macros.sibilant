@@ -68,6 +68,18 @@
                                                ...@attributes)))
          ])
 
+
+(macro def-tag (fn props ...body)
+       [ `(tags @fn)
+         (if (= 'brace props.type)
+             `(def @fn (props)
+                   (var @props props)
+                   ...@body)
+             `(def @fn @props ...@body))
+          ])
+
+
+
 (macro import-classes! (...alternating-sources-and-class-names)
        (var classes []
             requires (inject [] alternating-sources-and-class-names

@@ -4,6 +4,10 @@
 
 (tags p div h1 h2 span)
 
+(def-tag ClickCount {count}
+         (p "click count: " count))
+         
+
 (def-class LikeButton
            get-initial-state (#> { liked false count 0 })
            handle-click (#> (this.set-state { count (+ 1 this.state.count)
@@ -13,7 +17,7 @@
                         color 'white }
                 on-click this.handle-click
                 (h2 this.props.label)
-                (p "click count: " (span this.state.count))
+                (ClickCount count: this.state.count)
                 (p "This button is " (if this.state.liked "on" "off"))))
 
 (ReactDOM.render

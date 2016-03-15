@@ -1,9 +1,15 @@
 //# sourceMappingURL=/example.map
 ;
+var ClickCount = (function ClickCount$(props) {
+  /* ClickCount macros.sibilant:75:14 */
+
+  var count = props.count;
+  return React.createElement("p", null, "click count: ", count);
+});
 var LikeButton = React.createClass({
   displayName: "LikeButton",
   getInitialState: (function() {
-    /* example.sibilant:8:29 */
+    /* example.sibilant:10:29 */
   
     return {
       liked: false,
@@ -11,7 +17,7 @@ var LikeButton = React.createClass({
     };
   }),
   handleClick: (function() {
-    /* example.sibilant:9:24 */
+    /* example.sibilant:11:24 */
   
     return this.setState({
       count: (1 + this.state.count),
@@ -19,7 +25,7 @@ var LikeButton = React.createClass({
     });
   }),
   render: (function() {
-    /* example.sibilant:12:11 */
+    /* example.sibilant:14:11 */
   
     return React.createElement("div", {
       style: {
@@ -33,7 +39,7 @@ var LikeButton = React.createClass({
         color: "white"
       },
       onClick: this.handleClick
-    }, React.createElement("h2", null, this.props.label), React.createElement("p", null, "click count: ", React.createElement("span", null, this.state.count)), React.createElement("p", null, "This button is ", (function() {
+    }, React.createElement("h2", null, this.props.label), React.createElement(ClickCount, { count: this.state.count }), React.createElement("p", null, "This button is ", (function() {
       if (this.state.liked) {
         return "on";
       } else {
@@ -43,7 +49,7 @@ var LikeButton = React.createClass({
   })
 });
 ReactDOM.render(React.createElement("div", { id: "main" }, React.createElement("h1", null, "Example!"), [ "a", "b", "c" ].map((function() {
-  /* example.sibilant:23:12 */
+  /* example.sibilant:25:12 */
 
   return React.createElement(LikeButton, {
     key: arguments[0],
