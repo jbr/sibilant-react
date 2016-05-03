@@ -1,6 +1,6 @@
 {
   "name": "sibilant-react",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "react macros for sibilant",
   "main": "macros.sibilant",
   "author": "Jacob Rothstein <hi@jbr.me>",
