@@ -79,7 +79,6 @@
           ])
 
 
-
 (macro import-classes! (...alternating-sources-and-class-names)
        (var classes []
             requires (inject [] alternating-sources-and-class-names
@@ -100,3 +99,26 @@
                                  node)))))
 
        [ `(tags ...@classes) `(var ...@requires) ])
+
+
+(macro def! (name ...rest)
+       [`(def @name ...@rest) "\n" `(export @name)])
+
+(macro def-action (name ...attributes)
+       (var doubled-attributes (|> attributes (.map (#> [ #0 #0 ])) flatten))
+       `(def! @name (...@attributes)
+               (hash type (get @name 'name)
+                     ...@doubled-attributes)))
+
+(macro def-actions (...actions)
+       (actions.map (#> `(def-action ...@(get #0 'contents)))))
+
+(macro dispatch! (...args) `(dispatch (...@args)))
+
+
+(macro def-tag! (name ...rest)
+       [ `(def-tag @name ...@rest) "\n"
+         `(export @name) ])
+(macro def-class! (name ...rest)
+       [ `(def-class @name ...@rest) "\n"
+         `(export @name) ])
